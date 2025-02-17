@@ -126,21 +126,12 @@ TextLine CrnnNet::getTextLine(const cv::Mat &src) {
     return scoreToTextLine(outputData, outputShape[0], outputShape[2]);
 }
 
-std::vector<TextLine> CrnnNet::getTextLines(std::vector<cv::Mat> &partImg, const char *path, const char *imgName) {
+std::vector<TextLine> CrnnNet::getTextLines(std::vector<cv::Mat> &partImg) {
     int size = partImg.size();
     std::vector<TextLine> textLines(size);
     for (int i = 0; i < size; ++i) {
-        //OutPut DebugImg
-        if (isOutputDebugImg) {
-            std::string debugImgFile = getDebugImgFilePath(path, imgName, i, "-debug-");
-            saveImg(partImg[i], debugImgFile.c_str());
-        }
-
         //getTextLine
-        double startCrnnTime = getCurrentTime();
         TextLine textLine = getTextLine(partImg[i]);
-        double endCrnnTime = getCurrentTime();
-        textLine.time = endCrnnTime - startCrnnTime;
         textLines[i] = textLine;
     }
     return textLines;

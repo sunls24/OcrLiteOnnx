@@ -2,7 +2,7 @@
 #define __OCR_CRNNNET_H__
 
 #include "OcrStruct.h"
-#include <onnxruntime/core/session/onnxruntime_cxx_api.h>
+#include <onnxruntime_cxx_api.h>
 #include <opencv2/opencv.hpp>
 
 class CrnnNet {
@@ -16,7 +16,7 @@ public:
 
     void initModel(const std::string &pathStr, const std::string &keysPath);
 
-    std::vector<TextLine> getTextLines(std::vector<cv::Mat> &partImg, const char *path, const char *imgName);
+    std::vector<TextLine> getTextLines(std::vector<cv::Mat> &partImg);
 
 private:
     bool isOutputDebugImg = false;

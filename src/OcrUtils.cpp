@@ -390,12 +390,6 @@ void saveImg(cv::Mat &img, const char *imgPath) {
     cv::imwrite(imgPath, img);
 }
 
-std::string getSrcImgFilePath(const char *path, const char *imgName) {
-    std::string filePath;
-    filePath.append(path).append(imgName);
-    return filePath;
-}
-
 std::string getResultTxtFilePath(const char *path, const char *imgName) {
     std::string filePath;
     filePath.append(path).append(imgName).append("-result.txt");

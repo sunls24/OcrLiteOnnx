@@ -83,8 +83,7 @@ Angle AngleNet::getAngle(cv::Mat &src) {
     return scoreToAngle(outputData);
 }
 
-std::vector<Angle> AngleNet::getAngles(std::vector<cv::Mat> &partImgs, const char *path,
-                                       const char *imgName, bool doAngle, bool mostAngle) {
+std::vector<Angle> AngleNet::getAngles(std::vector<cv::Mat> &partImgs, bool doAngle, bool mostAngle) {
     size_t size = partImgs.size();
     std::vector<Angle> angles(size);
     if (doAngle) {
@@ -96,12 +95,6 @@ std::vector<Angle> AngleNet::getAngles(std::vector<cv::Mat> &partImgs, const cha
             angle.time = endAngle - startAngle;
 
             angles[i] = angle;
-
-            //OutPut AngleImg
-            if (isOutputAngleImg) {
-                std::string angleImgFile = getDebugImgFilePath(path, imgName, i, "-angle-");
-                saveImg(angleImg, angleImgFile.c_str());
-            }
         }
     } else {
         for (size_t i = 0; i < size; ++i) {

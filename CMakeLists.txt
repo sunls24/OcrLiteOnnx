@@ -12,9 +12,6 @@ if (NOT DEFINED OCR_OUTPUT)
     set(OCR_OUTPUT "BIN")
     message(STATUS "No OCR_OUTPUT, defaulting to BIN")
 endif ()
-option(OCR_BENCHMARK "build benchmark" ON)
-set(OCR_BENCHMARK ON)
-#set(OCR_OUTPUT "BIN")
 
 set(CMAKE_CXX_STANDARD 11)
 add_definitions(-DUNICODE -D_UNICODE)
@@ -83,25 +80,6 @@ install(TARGETS OcrLiteOnnx EXPORT OcrLiteOnnx)
 if (OCR_OUTPUT STREQUAL "CLIB") # CLIB
     file(GLOB OCR_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
     install(FILES ${OCR_INCLUDE} DESTINATION include)
-endif ()
-
-# benchmark
-if (OCR_BENCHMARK AND (OCR_OUTPUT STREQUAL "BIN"))
-    add_executable(benchmark benchmark/benchmark.cpp
-            src/AngleNet.cpp
-            src/clipper.cpp
-            src/CrnnNet.cpp
-            src/DbNet.cpp
-            src/getopt.cpp
-            src/OcrLite.cpp
-            src/OcrUtils.cpp)
-    target_link_libraries(benchmark ${OnnxRuntime_LIBS} ${OpenCV_LIBS})
-    target_compile_definitions(benchmark PRIVATE __EXEC__)
-
-    install(TARGETS benchmark EXPORT benchmark
-            ARCHIVE DESTINATION staticlib
-            LIBRARY DESTINATION sharedlib
-            RUNTIME DESTINATION bin)
 endif ()
 
 # Windows Link CRT

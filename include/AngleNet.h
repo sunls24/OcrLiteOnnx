@@ -2,7 +2,7 @@
 #define __OCR_ANGLENET_H__
 
 #include "OcrStruct.h"
-#include <onnxruntime/core/session/onnxruntime_cxx_api.h>
+#include <onnxruntime_cxx_api.h>
 #include <opencv2/opencv.hpp>
 
 class AngleNet {
@@ -15,8 +15,8 @@ public:
 
     void initModel(const std::string &pathStr);
 
-    std::vector<Angle> getAngles(std::vector<cv::Mat> &partImgs, const char *path,
-                                 const char *imgName, bool doAngle, bool mostAngle);
+    std::vector<Angle> getAngles(std::vector<cv::Mat> &partImgs,
+                                 bool doAngle, bool mostAngle);
 
 private:
     bool isOutputAngleImg = false;
